@@ -1,19 +1,46 @@
 local plugins = {
   {
-    "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "typescript-language-server",
-        "tailwindcss",
-        "prettierd",
-      },
-    },
-  },
-  {
     "neovim/nvim-lspconfig",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      -- Useful status updates for LSP
+      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
+      { "j-hui/fidget.nvim", tag = "legacy", opts = {} },
+
+      -- Additional lua configuration, makes nvim stuff amazing!
+      "folke/neodev.nvim",
+    },
     config = function()
+      require("mason-lspconfig").setup {
+        ensure_installed = {
+          "angularls",
+          "cssls",
+          "dockerls",
+          "docker_compose_language_service",
+          "eslint",
+          "html",
+          "jsonls",
+          "tsserver",
+          "lua_ls",
+          "remark_ls",
+          "mdx_analyzer",
+          "powershell_es",
+          "pyright",
+          "svelte",
+          "tailwindcss",
+        },
+
+        automatic_installation = true,
+      }
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
+    end,
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    config = function(_, opts)
+      require "custom.configs.cmp"(opts)
     end,
   },
   {
@@ -78,7 +105,7 @@ local plugins = {
   },
   {
     "ThePrimeagen/refactoring.nvim",
-    dependencies = {
+    dependencier = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
     },
@@ -91,17 +118,64 @@ local plugins = {
       -- keymaps
       vim.keymap.set({ "n", "x" }, "<leader>rr", function()
         require("telescope").extensions.refactoring.refactors()
-      end)
+      end, { desc = "Telescope [R]efactoring [R]efactors" })
     end,
   },
-  -- {
-  --   'mhartington/formatter.nvim',
-  --   event = 'VeryLazy',
-  --   opts = function ()
-  --     return require "custom.configs.formatter"
-  --   end,
-  -- }
-  -- Use null-ls until it no longer works
+  {
+    {
+      "kdheepak/lazygit.nvim",
+      -- load when opening a folder with .git directory
+      cmd = { "LazyGit", "LazyGitConfig" },
+      -- optional for floating window border decoration
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+      },
+      opts = {},
+    },
+  },
+  {
+    -- Adds git related signs to the gutter, as well as utilities for managing changes
+    "lewis6991/gitsigns.nvim",
+    opts = {
+      -- See `:help gitsigns.txt`
+      signs = {
+        add = { text = "+" },
+        change = { text = "~" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~" },
+      },
+      on_attach = function(bufnr)
+        vim.keymap.set(
+          "n",
+          "<leader>hp",
+          require("gitsigns").preview_hunk,
+          { buffer = bufnr, desc = "Preview git hunk" }
+        )
+
+        -- don't override the built-in and fugitive keymaps
+        local gs = package.loaded.gitsigns
+        vim.keymap.set({ "n", "v" }, "]c", function()
+          if vim.wo.diff then
+            return "]c"
+          end
+          vim.schedule(function()
+            gs.next_hunk()
+          end)
+          return "<Ignore>"
+        end, { expr = true, buffer = bufnr, desc = "Jump to next hunk" })
+        vim.keymap.set({ "n", "v" }, "[c", function()
+          if vim.wo.diff then
+            return "[c"
+          end
+          vim.schedule(function()
+            gs.prev_hunk()
+          end)
+          return "<Ignore>"
+        end, { expr = true, buffer = bufnr, desc = "Jump to previous hunk" })
+      end,
+    },
+  },
   {
     "jose-elias-alvarez/null-ls.nvim",
     event = "VeryLazy",

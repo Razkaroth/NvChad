@@ -1,6 +1,25 @@
+-- Set language to English
+vim.api.nvim_exec("language en_US.UTF-8", true)
 -- Show line numbers and set them to relative
 vim.opt.lnr = true
 vim.wo.relativenumber = true
+
+-- Set max columns to 80
+vim.opt.tw = 140
+vim.opt.colorcolumn = "140"
+
+-- wrap lines
+vim.opt.wrap = true
+
+-- Set the shell to pwsh
+
+vim.opt.shell = vim.fn.executable "pwsh" and "pwsh" or "powershell"
+vim.opt.shellcmdflag =
+  "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
+vim.opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
+vim.opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+vim.opt.shellquote = ""
+vim.opt.shellxquote = ""
 
 -- [[ Setting options ]]
 -- See `:help vim.o`

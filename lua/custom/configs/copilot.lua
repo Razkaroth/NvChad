@@ -7,11 +7,11 @@ local options = {
       jump_next = "]]",
       accept = "<CR>",
       refresh = "gr",
-      open = "<M-CR>"
+      open = "<M-k>",
     },
     layout = {
       position = "right", -- | top | left | right
-      ratio = 0.4
+      ratio = 0.4,
     },
   },
   suggestion = {
@@ -19,7 +19,7 @@ local options = {
     auto_trigger = true,
     debounce = 75,
     keymap = {
-      accept = "<M-l>",
+      accept = "<M-j>",
       accept_word = false,
       accept_line = "<C-j>",
       next = "<M-]>",
@@ -38,7 +38,7 @@ local options = {
     cvs = false,
     ["."] = false,
   },
-  copilot_node_command = 'node', -- Node.js version must be > 16.x
+  copilot_node_command = "node", -- Node.js version must be > 16.x
   server_opts_overrides = {},
 }
 

@@ -1,9 +1,13 @@
 -- Import default configuration
+
 local config = require "plugins.configs.lspconfig"
 local on_attach = require("plugins.configs.lspconfig").on_attach
 local capabilities = require("plugins.configs.lspconfig").capabilities
-
+local cmp = require "cmp"
 local lspconfig = require "lspconfig"
+
+-- nvim-cmp setup
+-- set caret return to no autoselect first item
 
 -- typescript
 
@@ -41,25 +45,11 @@ lspconfig.tailwindcss.setup {
   root_dir = lspconfig.util.root_pattern("tailwind.config.js", "tailwind.config.ts"),
 }
 
--- python
-lspconfig.pylsp.setup {
+-- pyright
+lspconfig.pyright.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = {
     "python",
-  },
-  settings = {
-    pylsp = {
-      configurationSources = { "flake8" },
-      plugins = {
-        pycodestyle = { enabled = false },
-        flake8 = { enabled = true },
-        pyflakes = { enabled = false },
-        pylint = { enabled = false },
-        yapf = { enabled = false },
-        isort = { enabled = false },
-        pylsp_mypy = { enabled = false },
-      },
-    },
   },
 }
