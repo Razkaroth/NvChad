@@ -14,7 +14,7 @@ M.windows = {
 M.GitAlchemy = {
   n = {
     ["<leader>G"] = { ":LazyGit<CR>", "Perform [G]it alchemy using LazyGit" },
-    ["<leader>u"] = { ":", "See the past with [U]ndoTree" },
+    ["<leader>u"] = { ":UndotreeToggle<CR>", "See the past with [U]ndoTree" },
   },
 }
 

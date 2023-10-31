@@ -100,9 +100,11 @@ local plugins = {
   },
   {
     "theprimeagen/harpoon",
+    event = "VeryLazy",
   },
   {
     "stevearc/dressing.nvim",
+    event = "VeryLazy",
   },
   {
     "ThePrimeagen/refactoring.nvim",
