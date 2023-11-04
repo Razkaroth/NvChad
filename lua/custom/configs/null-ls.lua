@@ -5,7 +5,9 @@ local opts = {
   sources = {
     -- null_ls.builtins.diagnostics.eslint,
     null_ls.builtins.diagnostics.flake8,
-    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.prettier.with {
+      extra_filetypes = { "mdx" },
+    },
     null_ls.builtins.formatting.stylua,
     null_ls.builtins.formatting.black,
   },

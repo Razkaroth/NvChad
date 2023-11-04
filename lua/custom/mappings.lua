@@ -1,6 +1,13 @@
 local M = {}
 -- opts is an optional parameter
 -- ["keys"] = {"action", "description", opts = {}},
+--
+M.general = {
+  i = {
+    ["<C-s>"] = { "<Esc>:wa<Cr>a", "Save all buffers" },
+  },
+}
+
 M.windows = {
   n = {
     -- Window rezising with ctrl arrows

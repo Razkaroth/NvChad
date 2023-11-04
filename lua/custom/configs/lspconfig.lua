@@ -45,11 +45,42 @@ lspconfig.tailwindcss.setup {
   root_dir = lspconfig.util.root_pattern("tailwind.config.js", "tailwind.config.ts"),
 }
 
+-- Angular
+lspconfig.angularls.setup {
+  root_dir = lspconfig.util.root_pattern("angular.json", "project.json"),
+}
+
 -- pyright
 lspconfig.pyright.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = {
     "python",
+  },
+}
+
+lspconfig.emmet_ls.setup {
+  -- on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = {
+    "css",
+    "eruby",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "less",
+    "sass",
+    "scss",
+    "svelte",
+    "pug",
+    "typescriptreact",
+    "vue",
+  },
+  init_options = {
+    html = {
+      options = {
+        ["bem.enabled"] = true,
+      },
+    },
   },
 }
