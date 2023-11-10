@@ -4,7 +4,20 @@ local M = {}
 --
 M.general = {
   i = {
-    ["<C-s>"] = { "<Esc>:wa<Cr>a", "Save all buffers" },
+    ["<C-s>"] = { "<c-o>:wa<CR>", "Save all buffers" },
+    -- use ctrl backspace to delete the previous word
+    ["<S-BS>"] = { "<c-o>db", "Delete word backwards" },
+    -- use ctrl delete to delete the next word
+    ["<S-Del>"] = { "<c-o>dw", "Delete next word" },
+  },
+}
+
+M.lspconfig = {
+  n = {
+    ["<A-q>"] = { ":CodeActionMenu<CR>", "Shows code actions menu under cursor" },
+  },
+  v = {
+    ["<A-q>"] = { ":CodeActionMenu<CR>", "Shows code actions menu under cursor" },
   },
 }
 

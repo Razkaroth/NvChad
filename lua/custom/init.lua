@@ -13,13 +13,13 @@ vim.opt.wrap = true
 
 -- Set the shell to pwsh
 
-vim.opt.shell = vim.fn.executable "pwsh" and "pwsh" or "powershell"
-vim.opt.shellcmdflag =
-  "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
-vim.opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
-vim.opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-vim.opt.shellquote = ""
-vim.opt.shellxquote = ""
+-- vim.opt.shell = vim.fn.executable "pwsh" and "pwsh" or "powershell"
+-- vim.opt.shellcmdflag =
+--   "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
+-- vim.opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
+-- vim.opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+-- vim.opt.shellquote = ""
+-- vim.opt.shellxquote = ""
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -61,13 +61,13 @@ vim.o.completeopt = "menuone,noselect"
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
+  group = vim.api.nvim_create_augroup("highlight_yank", {}),
+  desc = "Hightlight selection on yank",
   pattern = "*",
+  callback = function()
+    vim.highlight.on_yank { higroup = "IncSearch", timeout = 200 }
+  end,
 })
 
 vim.o.tabstop = 2 -- A TAB character looks like 4 spaces

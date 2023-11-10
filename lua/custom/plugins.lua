@@ -26,6 +26,11 @@ local plugins = {
     end,
   },
   {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
+  },
+  {
     "neovim/nvim-lspconfig",
     dependencies = {
       "williamboman/mason.nvim",
@@ -65,6 +70,10 @@ local plugins = {
     end,
   },
   {
+    "weilbith/nvim-code-action-menu",
+    cmd = "CodeActionMenu",
+  },
+  {
     "hrsh7th/nvim-cmp",
     config = function(_, opts)
       require "custom.configs.cmp"(opts)
@@ -82,22 +91,23 @@ local plugins = {
   },
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        "vim",
-        "lua",
-        -- web dev
-        "html",
-        "css",
-        "javascript",
-        "typescript",
-        "tsx",
-        "json",
-        "markdown",
-        -- data analysis
-        "python",
+    dependencies = {
+      {
+        "nvim-treesitter/nvim-treesitter-textobjects",
       },
     },
+    opts = function()
+      return require "custom.configs.treesitter"
+    end,
+  },
+  {
+    "numToStr/Comment.nvim",
+    dependencies = "JoosepAlviste/nvim-ts-context-commentstring",
+    config = function()
+      require("Comment").setup {
+        pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+      }
+    end,
   },
   {
     "theprimeagen/harpoon",

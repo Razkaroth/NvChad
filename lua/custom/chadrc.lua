@@ -2,10 +2,10 @@
 local M = {}
 
 M.ui = {
-  theme = "nightlamp",
+  theme = "mountain",
   theme_toggle = {
-    "nightlamp",
-    "blossom_light",
+    "mountain",
+    "mountain",
   },
   nvdash = {
     load_on_startup = true,
