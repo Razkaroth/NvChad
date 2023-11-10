@@ -11,15 +11,16 @@ vim.opt.colorcolumn = "140"
 -- wrap lines
 vim.opt.wrap = true
 
--- Set the shell to pwsh
-
--- vim.opt.shell = vim.fn.executable "pwsh" and "pwsh" or "powershell"
--- vim.opt.shellcmdflag =
---   "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
--- vim.opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
--- vim.opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
--- vim.opt.shellquote = ""
--- vim.opt.shellxquote = ""
+-- Set the shell to pwsh if on windows
+if vim.loop.os_uname().sysname == "Windows_NT" then
+  vim.opt.shell = vim.fn.executable "pwsh" and "pwsh" or "powershell"
+  vim.opt.shellcmdflag =
+    "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
+  vim.opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
+  vim.opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+  vim.opt.shellquote = ""
+  vim.opt.shellxquote = ""
+end
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
