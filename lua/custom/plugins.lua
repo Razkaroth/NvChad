@@ -57,7 +57,7 @@ local plugins = {
           "lua_ls",
           "remark_ls",
           "mdx_analyzer",
-          "powershell_es",
+          -- "powershell_es",
           "pyright",
           "svelte",
           "tailwindcss",

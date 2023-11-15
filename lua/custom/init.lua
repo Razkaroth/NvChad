@@ -78,3 +78,7 @@ vim.o.shiftwidth = 2 -- N
 
 -- run :Nvdash to open nvim-dash at startup
 vim.cmd [[ autocmd VimEnter * Nvdash ]]
+
+--  Load Custom Funcions
+require("custom.functions.autorun")
+
