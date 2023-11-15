@@ -1,5 +1,9 @@
 -- Set language to English
 vim.api.nvim_exec("language en_US.UTF-8", true)
+
+-- instant.nvim user
+vim.g.instant_username = "Razkaroth"
+
 -- Show line numbers and set them to relative
 vim.opt.lnr = true
 vim.wo.relativenumber = true
@@ -80,5 +84,4 @@ vim.o.shiftwidth = 2 -- N
 vim.cmd [[ autocmd VimEnter * Nvdash ]]
 
 --  Load Custom Funcions
-require("custom.functions.autorun")
-
+require "custom.functions.autorun"

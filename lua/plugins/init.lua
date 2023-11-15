@@ -3,7 +3,16 @@
 local default_plugins = {
 
   "nvim-lua/plenary.nvim",
-
+  {
+    "jbyuki/instant.nvim",
+    cmd = {
+      "InstantStartServer",
+      "InstantStartSession",
+      "InstantStopServer",
+      "InstantStop",
+      "InstantJoinSession",
+    },
+  },
   {
     "NvChad/base46",
     branch = "v2.0",
