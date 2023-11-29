@@ -88,8 +88,26 @@ lspconfig.tailwindcss.setup {
 }
 
 -- Angular
+local ang_install_path = vim.fn.stdpath "data" .. "/mason/packages/angular-language-server/node_modules"
+-- local cwdpath = vim.fn.getcwd() .. "/node_modules"
+local ang = ang_install_path .. "/@angular/language-server/node_modules"
+
+local cmd = {
+  "ngserver",
+  "--stdio",
+  "--tsProbeLocations",
+  ang_install_path,
+  "--ngProbeLocations",
+  ang,
+}
+
 lspconfig.angularls.setup {
-  root_dir = lspconfig.util.root_pattern("angular.json", "project.json"),
+  root_dir = lspconfig.util.root_pattern("angular.json", "project.json", "nx.json"),
+  on_attach = on_attach,
+  cmd = cmd,
+  on_new_config = function(new_config, new_root_dir)
+    new_config.cmd = cmd
+  end,
 }
 
 -- pyright
