@@ -1,5 +1,12 @@
 local plugins = {
   {
+    "NStefan002/speedtyper.nvim",
+    cmd = "Speedtyper",
+    opts = {
+      -- your config
+    },
+  },
+  {
     "tpope/vim-surround",
     event = "BufRead",
   },
@@ -24,6 +31,16 @@ local plugins = {
         color_square_width = 2,
       }
     end,
+  },
+  {
+    "Equilibris/nx.nvim",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+    },
+    opts = {},
+    keys = {
+      "<leader>nx",
+    },
   },
   {
     "pmizio/typescript-tools.nvim",
@@ -194,6 +211,27 @@ local plugins = {
     event = "VeryLazy",
     opts = function()
       return require "custom.configs.null-ls"
+    end,
+  },
+  {
+    "nvim-neorg/neorg",
+    build = ":Neorg sync-parsers",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    ft = { "norg" },
+    config = function()
+      require("neorg").setup {
+        load = {
+          ["core.defaults"] = {}, -- Loads default behaviour
+          ["core.concealer"] = {}, -- Adds pretty icons to your documents
+          ["core.dirman"] = { -- Manages Neorg workspaces
+            config = {
+              workspaces = {
+                notes = "~/notes",
+              },
+            },
+          },
+        },
+      }
     end,
   },
 }
