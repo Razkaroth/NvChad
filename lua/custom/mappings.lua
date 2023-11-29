@@ -1,26 +1,7 @@
 local M = {}
--- opts is an optional parameter
+--opts is an optional parameter
 -- ["keys"] = {"action", "description", opts = {}},
 --
-M.general = {
-  i = {
-    ["<C-s>"] = { "<c-o>:wa<CR>", "Save all buffers" },
-    -- use ctrl backspace to delete the previous word
-    ["<S-BS>"] = { "<c-o>db", "Delete word backwards" },
-    -- use ctrl delete to delete the next word
-    ["<S-Del>"] = { "<c-o>dw", "Delete next word" },
-  },
-}
-
-M.lspconfig = {
-  n = {
-    ["<A-q>"] = { ":CodeActionMenu<CR>", "Shows code actions menu under cursor" },
-  },
-  v = {
-    ["<A-q>"] = { ":CodeActionMenu<CR>", "Shows code actions menu under cursor" },
-  },
-}
-
 M.windows = {
   n = {
     -- Window rezising with ctrl arrows
@@ -38,63 +19,9 @@ M.GitAlchemy = {
   },
 }
 
-M.Harpoon = {
-  n = {
-    ["<leader>h"] = {
-      function()
-        require("harpoon.ui").nav_file(1)
-      end,
-      "Open [1]st file in Harpoon",
-    },
-    ["<leader>h1"] = {
-      function()
-        require("harpoon.ui").nav_file(1)
-      end,
-      "Open [1]st file in Harpoon",
-    },
-    ["<leader>h2"] = {
-      function()
-        require("harpoon.ui").nav_file(2)
-      end,
-      "Open [2]nd file in Harpoon",
-    },
-    ["<leader>h3"] = {
-      function()
-        require("harpoon.ui").nav_file(3)
-      end,
-      "Open [3]rd file in Harpoon",
-    },
-    ["<leader>h4"] = {
-      function()
-        require("harpoon.ui").nav_file(4)
-      end,
-      "Open [4]th file in Harpoon",
-    },
-    ["<leader>h5"] = {
-      function()
-        require("harpoon.ui").nav_file(5)
-      end,
-      "Open [5]th file in Harpoon",
-    },
-    ["<leader>hm"] = {
-      function()
-        require("harpoon.mark").add_file()
-      end,
-      "Add [H]arpoon [M]ark file",
-    },
-    ["<leader>hu"] = {
-      function()
-        require("harpoon.mark").remove_file()
-      end,
-      "[H]arpoon file [U]nmark",
-    },
-    ["<leader>ht"] = {
-      function()
-        require("harpoon.ui").toggle_quick_menu()
-      end,
-      "[H]arpoon [T]oggle",
-    },
-  },
-}
+M.general = require('custom.maps.general')
+M.lspconfig = require('custom.maps.lsp')
+M.Harpoon = require('custom.maps.harpoon')
+M.Nx = require('custom.maps.nx')
 
 return M
