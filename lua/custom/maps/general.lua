@@ -9,7 +9,12 @@ return {
       end
     end, 'Open url under cursor in browser'},
     ['<C-s>'] = { ":wa<CR>", "Save all buffers" },
-    ['<leader>n'] = {function () end}
+    ['<leader>n'] = {function () end},
+    -- tmux navigation
+    ['<C-h>'] = { ":TmuxNavigateLeft<CR>", "Navigate left" },
+    ['<C-l>'] = { ":TmuxNavigateRight<CR>", "Navigate right" },
+    ['<C-j>'] = { ":TmuxNavigateDown<CR>", "Navigate down" },
+    ['<C-k>'] = { ":TmuxNavigateUp<CR>", "Navigate up" },
   },
   t = {
     ['<C-LeftMouse>'] = { function ()

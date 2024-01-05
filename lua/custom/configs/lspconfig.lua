@@ -68,6 +68,28 @@ require("typescript-tools").setup {
   },
 }
 
+-- scss and html
+lspconfig.cssls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = {
+    "css",
+    "scss",
+    "html",
+  },
+  settings = {
+    css = { validate = true, lint = {
+      unknownAtRules = "ignore",
+    } },
+    scss = { validate = true, lint = {
+      unknownAtRules = "ignore",
+    } },
+    less = { validate = true, lint = {
+      unknownAtRules = "ignore",
+    } },
+  },
+}
+
 -- tailwindcss
 lspconfig.tailwindcss.setup {
   on_attach = on_attach,
@@ -107,6 +129,7 @@ lspconfig.angularls.setup {
   cmd = cmd,
   on_new_config = function(new_config, new_root_dir)
     new_config.cmd = cmd
+    require "nx"
   end,
 }
 

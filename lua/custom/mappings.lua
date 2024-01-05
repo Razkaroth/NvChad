@@ -19,9 +19,17 @@ M.GitAlchemy = {
   },
 }
 
+M.TODO = {
+  n = {
+    ["<leader>td"] = { ":TodoTelescope<CR>", "Search [T]ODOs" },
+    ["<leader>tr"] = { ":TodoTrouble<CR>", "Search [T]ODOs with Trouble" },
+  },
+}
+
 M.general = require('custom.maps.general')
 M.lspconfig = require('custom.maps.lsp')
 M.Harpoon = require('custom.maps.harpoon')
 M.Nx = require('custom.maps.nx')
+M.Tabs = require('custom.maps.tabs')
 
 return M

@@ -18,7 +18,6 @@ local opts = {
     },
     null_ls.builtins.code_actions.refactoring,
     null_ls.builtins.code_actions.proselint,
-    null_ls.builtins.code_actions.ts_node_action,
   },
   on_attach = function(client, bufnr)
     if client.supports_method "textDocument/formatting" then
