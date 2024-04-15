@@ -10,7 +10,7 @@ o.cursorlineopt ='both' -- to enable cursorline!
 o.number = true
 o.lnr = true
 o.relativenumber = true
-
+o.conceallevel = 1
 -- Columns
 o.tw = 140
 o.colorcolumn = 140

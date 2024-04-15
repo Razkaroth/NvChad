@@ -14,6 +14,7 @@ local treesitter_config = {
       "tsx",
       "json",
       "markdown",
+      "markdown_inline",
       -- data analysis
       "python",
       -- containers and orchestration
