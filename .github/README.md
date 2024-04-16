@@ -30,7 +30,8 @@ Requirements:
 - gcc
 
 
-What follows is the original README.md by @siduck on the NvChad repo. In case you are interested in creating your own config.
+What follows is the original README.md by @siduck on the NvChad repo. So that you can get an idea of what is NvChad.
+
 ---
 
 
