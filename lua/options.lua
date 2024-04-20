@@ -12,8 +12,8 @@ o.lnr = true
 o.relativenumber = true
 o.conceallevel = 1
 -- Columns
-o.tw = 140
-o.colorcolumn = 140
+-- o.tw = 140
+-- o.colorcolumn = 140
 o.wrap = true
 
 -- Set the shell to pwsh if OS is Windows
