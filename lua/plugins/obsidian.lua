@@ -81,7 +81,7 @@ return {
 				ObsidianDone = { bold = true, fg = "#89ddff" },
 				ObsidianRightArrow = { bold = true, fg = "#f78c6c" },
 				ObsidianTilde = { bold = true, fg = "#ff5370" },
-				ObsidianBullet = { bold = true, fg = "#ffffff", bg = "#000000" }, --colors dont change accordingly
+				ObsidianBullet = { bold = true, fg = "#ffffff", }, --colors dont change accordingly
 				ObsidianRefText = { underline = true, fg = "#5BE0C4" },
 				ObsidianExtLinkIcon = { fg = "#5BE0C4" },
 				ObsidianTag = { italic = true, fg = "#89ddff" },
