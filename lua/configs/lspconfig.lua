@@ -83,6 +83,7 @@ require("mason-lspconfig").setup_handlers({
 		})
 	end,
 
+  -- https://github.com/pmizio/typescript-tools.nvim
 	["tsserver"] = function()
 		require("typescript-tools").setup({
 			on_attach = on_attach,
