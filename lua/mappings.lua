@@ -4,6 +4,16 @@ require("nvchad.mappings")
 
 local map = vim.keymap.set
 
+map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "LSP - Hover" })
+
+map("n", "k", function()
+	return (vim.v.count > 0 and "k" or "gk")
+end, { noremap = true, expr = true })
+
+map("n", "j", function()
+	return (vim.v.count > 0 and "j" or "gj")
+end, { noremap = true, expr = true })
+
 map("n", ";", ":", { desc = "CMD enter command mode" })
 
 map({ "n", "i", "v" }, "<C-s>", "<cmd> wa <cr>", { desc = "General - Save all buffers" })
@@ -30,7 +40,7 @@ map("n", "<C-Right>", ":vertical resize +2<CR>", { desc = "Windows - resize wind
 -- Git
 
 map("n", "<leader>G", "<cmd>LazyGit<CR>", { desc = "GitAlchemy - Lazy[G]it" })
-map("n", "<leader>u", "<cmd>undotree<CR>", { desc = "GitAlchemy - [u]ndotree" })
+map("n", "<leader>u", "<cmd>UndotreeToggle<CR>", { desc = "GitAlchemy - [u]ndotree" })
 
 -- TODO
 map("n", "<leader>td", "<cmd>TodoTelescope<CR>", { desc = "TODO - Search [T]ODOs" })
@@ -85,10 +95,10 @@ end, { desc = "[H]arpoon [T]oggle" })
 
 -- LSP
 --
-map("n", "<A-q>", ":CodeActionMenu<CR>", { desc = "LSP - Shows code actions menu under cursor" })
+map({ "n", "i", "v" }, "<A-q>", function()
+	require("actions-preview").code_actions()
+end, { desc = "LSP - Shows code actions menu under cursor" })
 map("n", "<leader>lr", ":LspRestart<CR>", { desc = "LSP - Restart the LSP" })
-
-map("v", "<A-q>", ":CodeActionMenu<CR>", { desc = "LSP - Shows code actions menu under cursor" })
 
 -- Nx
 --
@@ -100,6 +110,22 @@ end, { desc = "Nx - Run nx generator" })
 map("n", "<leader>nxa", function()
 	require("nx.actions").actions_finder({})
 end, { desc = "Nx - Run nx action" })
+
+map("n", "<leader>nr", "<cmd>Telescope resume<CR>", { desc = "Telescope resume" })
+
+local telescope = require("telescope.builtin")
+local nxg_last = 0
+local nxg_resume = function()
+	if nxg_last == 0 then
+		nxg_last = 1
+		require("nx.generators").generators({}) -- default fallback
+	else
+		telescope.resume()
+	end
+end
+map("n", "<leader><leader>nxg", nxg_resume, { desc = "Nx - Run last nx generator" })
+
+map("n", "<leader>ra", vim.lsp.buf.rename, { desc = "LSP - Rename" })
 
 map("n", "<leader>nxl", ":Lazy load nx.nvim<CR>", { desc = "Nx - Lazy load nx" })
 
@@ -131,3 +157,26 @@ map("n", "<leader>t6", ":tabnext 6<CR>", { desc = "Tabuffline - Tab 6" })
 map("n", "<leader>t7", ":tabnext 7<CR>", { desc = "Tabuffline - Tab 7" })
 map("n", "<leader>t8", ":tabnext 8<CR>", { desc = "Tabuffline - Tab 8" })
 map("n", "<leader>t9", ":tabnext 9<CR>", { desc = "Tabuffline - Tab 9" })
+
+-- Vertical centering
+local centered = false
+
+vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+	group = vim.api.nvim_create_augroup("AutoCenter", {}),
+	callback = function()
+		if centered then
+			vim.cmd("normal! zz")
+		end
+	end,
+})
+
+vim.api.nvim_create_user_command("ToggleAutocenter", function()
+	centered = not centered
+	if centered then
+		print("Autocentering enabled")
+	else
+		print("Autocentering disabled")
+	end
+end, {})
+
+map("n", "<leader>zc", ":ToggleAutocenter<CR>", { desc = "General - Toggle autocenter" })
