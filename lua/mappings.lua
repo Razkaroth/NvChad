@@ -131,3 +131,39 @@ map("n", "<leader>t6", ":tabnext 6<CR>", { desc = "Tabuffline - Tab 6" })
 map("n", "<leader>t7", ":tabnext 7<CR>", { desc = "Tabuffline - Tab 7" })
 map("n", "<leader>t8", ":tabnext 8<CR>", { desc = "Tabuffline - Tab 8" })
 map("n", "<leader>t9", ":tabnext 9<CR>", { desc = "Tabuffline - Tab 9" })
+
+-- Vertical centering
+local centered = false
+
+vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+	group = vim.api.nvim_create_augroup("AutoCenter", {}),
+	callback = function()
+		if centered then
+			vim.cmd("normal! zz")
+		end
+	end,
+})
+
+vim.api.nvim_create_user_command("ToggleAutocenter", function()
+	centered = not centered
+	if centered then
+		print("Autocentering enabled")
+	else
+		print("Autocentering disabled")
+	end
+end, {})
+
+map("n", "<leader>zc", ":ToggleAutocenter<CR>", { desc = "General - Toggle autocenter" })
+
+-- ### MOLTEN ###
+
+map("n", "<leader>ji", ":MoltenInit<CR>", { silent = true, desc = "Initialize the plugin" })
+map("n", "<leader>je", ":MoltenEvaluateOperator<CR>", { silent = true, desc = "run operator selection" })
+map("n", "<leader>jl", ":MoltenEvaluateLine<CR>", { silent = true, desc = "evaluate line" })
+map("n", "<leader>jr", ":MoltenReevaluateCell<CR>", { silent = true, desc = "re-evaluate cell" })
+map(
+	"v",
+	"<localleader>r",
+	":<C-u>MoltenEvaluateVisual<CR>gv",
+	{ silent = true, desc = "evaluate visual selection" }
+)
