@@ -18,8 +18,8 @@ return {
 		opts = {},
 	},
 	{
-		"weilbith/nvim-code-action-menu",
-		cmd = "CodeActionMenu",
+		"aznhe21/actions-preview.nvim",
+    opts={}
 	},
 	{
 		"NvChad/nvim-colorizer.lua",
