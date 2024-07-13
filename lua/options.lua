@@ -5,6 +5,7 @@ require "nvchad.options"
 local o = vim.o
 local g = vim.g
 
+
 -- Lines
 o.cursorlineopt ='both' -- to enable cursorline!
 o.number = true
@@ -15,7 +16,7 @@ o.conceallevel = 1
 -- o.tw = 140
 -- o.colorcolumn = 140
 o.wrap = true
-
+o.linebreak = true
 -- Set the shell to pwsh if OS is Windows
 
 if vim.loop.os_uname().sysname == "Windows_NT" then
