@@ -180,3 +180,78 @@ vim.api.nvim_create_user_command("ToggleAutocenter", function()
 end, {})
 
 map("n", "<leader>zc", ":ToggleAutocenter<CR>", { desc = "General - Toggle autocenter" })
+
+-- Sluggifier
+local sluggify = function(text)
+	text = text:lower()
+	-- Remove disallowed characters.
+	text = text:gsub("[^ a-zA-Z0-9_-]+", "")
+	-- Convert spaces and multiple `_` to a single `_`.
+	text = text:gsub("[ _]+", "_")
+	-- Remove dashes and underscores from the beginning and end.
+	text = text:gsub("^[ _-]+", "")
+	text = text:gsub("[ _-]+$", "")
+	return text
+end
+
+local sluggify_line = function()
+	local line = vim.api.nvim_get_current_line()
+	local slugified = sluggify(line)
+	vim.api.nvim_set_current_line(slugified)
+end
+
+vim.api.nvim_create_user_command("SluggifyCurrentLine", sluggify_line, {})
+
+map("n", "<leader>rs", ":SluggifyCurrentLine<CR>", { desc = "General - Sluggify current line" })
+
+-- Function to sluggify selected text in visual mode, preserving other parts of the lines
+local function sluggify_visual_selection()
+	local start_pos = vim.fn.getpos("'<")
+	local end_pos = vim.fn.getpos("'>")
+
+	-- print("Start Position:", vim.inspect(start_pos))
+	-- print("End Position:", vim.inspect(end_pos))
+
+	local start_line, start_col = start_pos[2], start_pos[3]
+	local end_line, end_col = end_pos[2], end_pos[3]
+
+	-- print("Start Line:", start_line, "Start Col:", start_col)
+	-- print("End Line:", end_line, "End Col:", end_col)
+
+	-- Get selected text
+	local lines = vim.fn.getline(start_line, end_line)
+	-- print("Selected Lines:", vim.inspect(lines))
+
+	if #lines == 1 then
+		-- Single line selection
+		local line = lines[1]
+		local selected_text = line:sub(start_col, end_col)
+		-- print("Selected Text:", selected_text)
+		local sluggified = sluggify(selected_text)
+		-- print("Sluggified Text:", sluggified)
+		local new_line = line:sub(1, start_col - 1) .. sluggified .. line:sub(end_col + 1)
+		vim.fn.setline(start_line, new_line)
+	else
+		-- Multi-line selection
+		local first_line = lines[1]
+		local last_line = lines[#lines]
+		lines[1] = first_line:sub(1, start_col - 1) .. sluggify(first_line:sub(start_col))
+		lines[#lines] = sluggify(last_line:sub(1, end_col)) .. last_line:sub(end_col + 1)
+		for i = 2, #lines - 1 do
+			lines[i] = sluggify(lines[i])
+		end
+		vim.fn.setline(start_line, lines)
+	end
+
+	-- print("Modified Lines:", vim.inspect(vim.fn.getline(start_line, end_line)))
+end
+
+vim.api.nvim_create_user_command("SluggifyVisualSelection", function()
+	sluggify_visual_selection()
+end, {})
+
+map("v", "<leader>rs", function ()
+  sluggify_visual_selection()
+end, { desc = "General - Sluggify visual selection", noremap = true })
+
+-- Lorem Ipsum dolor sit amet
