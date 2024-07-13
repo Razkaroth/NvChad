@@ -3,7 +3,7 @@ local on_attach = require("nvchad.configs.lspconfig").on_attach
 local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 require("mason").setup()
-require("mason-lspconfig").setup{}
+require("mason-lspconfig").setup({})
 local lspconfig = require("lspconfig")
 require("mason-lspconfig").setup_handlers({
 	-- The first entry (without a key) will be the default handler
@@ -13,6 +13,23 @@ require("mason-lspconfig").setup_handlers({
 		lspconfig[server_name].setup({})
 	end,
 	-- Next, you can provide a dedicated handler for specific servers.
+	--
+	["pyright"] = function()
+		lspconfig.pyright.setup({
+			on_attach = on_attach,
+			capabilities = capabilities,
+			settings = {
+				python = {
+					analysis = {
+						diagnosticSeverityOverrides = {
+							reportUnusedExpression = "none",
+						},
+					},
+				},
+			},
+		})
+	end,
+
 	["cssls"] = function()
 		-- scss and html
 		lspconfig.cssls.setup({
@@ -83,7 +100,7 @@ require("mason-lspconfig").setup_handlers({
 		})
 	end,
 
-  -- https://github.com/pmizio/typescript-tools.nvim
+	-- https://github.com/pmizio/typescript-tools.nvim
 	["tsserver"] = function()
 		require("typescript-tools").setup({
 			on_attach = on_attach,
@@ -119,7 +136,7 @@ require("mason-lspconfig").setup_handlers({
 				-- CodeLens
 				-- WARNING: Experimental feature also in VSCode, because it might hit performance of server.
 				-- possible values: ("off"|"all"|"implementations_only"|"references_only")
-				code_lens = "all",
+				code_lens = "off",
 				-- by default code lenses are displayed on all referencable values and for some of you it can
 				-- be too much this option reduce count of them by removing member references from lenses
 				disable_member_code_lens = true,
