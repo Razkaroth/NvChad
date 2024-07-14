@@ -200,9 +200,9 @@ local slugify_line = function()
 	vim.api.nvim_set_current_line(slugified)
 end
 
-vim.api.nvim_create_user_command("slugifyCurrentLine", sluggify_line, {})
+vim.api.nvim_create_user_command("SlugifyCurrentLine", slugify_line, {})
 
-map("n", "<leader>rs", ":slugifyCurrentLine<CR>", { desc = "General - Slugify current line" })
+map("n", "<leader>rs", ":SlugifyCurrentLine<CR>", { desc = "General - Slugify current line" })
 
 -- Function to slugify selected text in visual mode, preserving other parts of the lines
 local function slugify_visual_selection()
@@ -227,7 +227,7 @@ local function slugify_visual_selection()
 		local line = lines[1]
 		local selected_text = line:sub(start_col, end_col)
 		-- print("Selected Text:", selected_text)
-		local slugified = sluggify(selected_text)
+		local slugified = slugify(selected_text)
 		-- print("slugified Text:", sluggified)
 		local new_line = line:sub(1, start_col - 1) .. slugified .. line:sub(end_col + 1)
 		vim.fn.setline(start_line, new_line)
@@ -246,7 +246,7 @@ local function slugify_visual_selection()
 	-- print("Modified Lines:", vim.inspect(vim.fn.getline(start_line, end_line)))
 end
 
-vim.api.nvim_create_user_command("slugifyVisualSelection", function()
+vim.api.nvim_create_user_command("SlugifyVisualSelection", function()
 	slugify_visual_selection()
 end, {})
 

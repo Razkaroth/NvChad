@@ -5,13 +5,14 @@ require "nvchad.options"
 local o = vim.o
 local g = vim.g
 
+g.loaded_python3_provider = 1
 
 -- Lines
 o.cursorlineopt ='both' -- to enable cursorline!
 o.number = true
 o.lnr = true
 o.relativenumber = true
-o.conceallevel = 1
+o.conceallevel = 0
 -- Columns
 -- o.tw = 140
 -- o.colorcolumn = 140
